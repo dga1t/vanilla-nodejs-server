@@ -1,10 +1,12 @@
 const http = require('http');
 
-const data = JSON.stringify({
-    name: 'Lenovo',
-    description: 'ThinkPad',
-    price: 1500
-});
+const data = new TextEncoder().encode(
+    JSON.stringify({
+        name: 'Lenovo',
+        description: 'ThinkPad',
+        price: 1500
+    })
+);
 
 const options = {
     hostname: 'localhost',
@@ -24,5 +26,5 @@ const req = http.request(options, res => {
 });
 
 req.on('error', error => { console.error(error) });
-
+req.write(data);
 req.end();
